@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: tijetravel-frontend
+    env: docker
+    dockerfilePath: tijetravel-frontend/Dockerfile
+    dockerContext: .
+    plan: free
+    envVars:
+      - key: BACKEND_API_URL
+        sync: false
