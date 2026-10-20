@@ -1,5 +1,6 @@
 package com.tijetravel.frontend.config;
 
+import jakarta.servlet.DispatcherType;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -25,6 +26,10 @@ public class FrontendSecurityConfig {
                         .cacheControl(cache -> {})
                 )
                 .authorizeHttpRequests(auth -> auth
+                        // Permitir forwards internos de Tomcat/JSP y manejo de errores
+                        .dispatcherTypeMatchers(DispatcherType.FORWARD, DispatcherType.ERROR).permitAll()
+                        .requestMatchers("/WEB-INF/jsp/**").permitAll()
+
                         // Recursos estáticos
                         .requestMatchers("/css/**", "/images/**", "/static/**", "/favicon.ico").permitAll()
 
